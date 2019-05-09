@@ -41,7 +41,7 @@ class Signup extends Component {
             redirectTo: '/login'
           })
         } else {
-          console.log('username already taken')
+          console.log('email already taken')
         }
       }).catch(error => {
         console.log('signup error: ')
@@ -58,7 +58,7 @@ class Signup extends Component {
         <form className="form-horizontal">
           <div className="form-group">
             <div className="col-1 col-ml-auto">
-              <label className="form-label" htmlFor="firstname">First Name</label>
+              <label className="form-label" htmlFor="firstname">First Name:</label>
             </div>
             <div className="col-3 col-mr-auto">
               <input className="form-input"
@@ -69,6 +69,11 @@ class Signup extends Component {
                 value={this.state.firstname}
                 onChange={this.handleChange}
               />
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-1 col-ml-auto">
+              <label className="form-label" htmlFor="lastname">Last Name:</label>
             </div>
             <div className="col-3 col-mr-auto">
               <input className="form-input"
@@ -83,6 +88,21 @@ class Signup extends Component {
           </div>
           <div className="form-group">
             <div className="col-1 col-ml-auto">
+              <label className="form-label" htmlFor="email">email: </label>
+            </div>
+            <div className="col-3 col-mr-auto">
+              <input className="form-input"
+                type="text"
+                id="email"
+                name="email"
+                placeholder="Email"
+                value={this.state.email}
+                onChange={this.handleChange}
+              />
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-1 col-ml-auto">
               <label className="form-label" htmlFor="password">Password: </label>
             </div>
             <div className="col-3 col-mr-auto">
@@ -91,6 +111,20 @@ class Signup extends Component {
                 type="password"
                 name="password"
                 value={this.state.password}
+                onChange={this.handleChange}
+              />
+            </div>
+          </div>
+          <div className="form-group">
+            <div className="col-1 col-ml-auto">
+              <label className="form-label" htmlFor="Confirm Password">Confirm Password: </label>
+            </div>
+            <div className="col-3 col-mr-auto">
+              <input className="form-input"
+                placeholder="Confirm Password"
+                type="password"
+                name="Confirm Password"
+                value={this.state.confirmPassword}
                 onChange={this.handleChange}
               />
             </div>

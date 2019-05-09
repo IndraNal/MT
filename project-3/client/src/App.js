@@ -1,9 +1,9 @@
 // import React, { Fragment } from "react";
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { Route } from "react-router-dom";
 import UserPage from './Pages/UserPage';
 // import Reports from './Pages/Reports';
-import NoMatch from "./Pages/NoMatch";
+//import NoMatch from "./Pages/NoMatch";
 import Signup from "./Components/Sign-up"
 import LoginForm from './Components/Form'
 
@@ -80,7 +80,7 @@ class App extends Component {
         {/* Routes to different components */}
         <Route
           exact path="/"
-          component={Home} />
+          component={UserPage} />
         <Route
           path="/login"
           render={() =>
@@ -94,8 +94,6 @@ class App extends Component {
             <Signup />}
         />
 
-        <Route exact path="/userpage" component={UserPage} />
-        <Route component={NoMatch} />
 
       </div>
     );
