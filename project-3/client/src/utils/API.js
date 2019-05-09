@@ -5,10 +5,10 @@ export default {
 
   // Save User to database
 
-  addUserToDB: (userData) => {
-    return axios.post("/register", userData);
-    console.log(userData)
-  },
+  // addUserToDB: (userData) => {
+  //   return axios.post("/register", userData);
+  //   console.log(userData)
+  // },
 
 
 

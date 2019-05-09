@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from 'react'
 import "./style.css";
 import API from "../../utils/API";
 import Button from '@material-ui/core/Button';
@@ -9,87 +9,196 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { BrowserRouter as Router } from "react-router-dom";
 
-class SignIn extends React.Component {
-  constructor(props) {
-    super(props);
+import { Redirect } from 'react-router-dom'
+import axios from 'axios'
+
+class LoginForm extends Component {
+  constructor() {
+    super()
     this.state = {
-      open: false,
-      firstname: "",
-      lastname: "",
-      email: "",
-      password: "",
-      password2: ""
+      username: '',
+      password: '',
+      redirectTo: null
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
 
-    this.handleSaveClick = this.handleSaveClick.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
+  handleChange(event) {
     this.setState({
-      [name]: value
-
-    });
-    debugger;
-  };
-
-  handleSaveClick = function (e) {
-
-    const userData = {
-      firstname: this.props.firstname,
-      lastname: this.props.lastname,
-      email: this.props.email,
-      password: this.props.password,
-      passowrd2: this.props.password2
-    }
-    e.preventDefault();
-    API.addUserToDB(userData).then(
-      (response) => {
-        console.log(response);
-      }
-    ).catch(
-      (err) => {
-        console.log(err);
-      }
-    );
+      [event.target.name]: event.target.value
+    })
   }
 
-  handleClickOpen = () => {
-    this.setState({ open: true });
-  };
+  handleSubmit(event) {
+    event.preventDefault()
+    console.log('handleSubmit')
 
-  handleClose = () => {
-    this.setState({ open: false });
+    axios
+      .post('/user/login', {
+        username: this.state.username,
+        password: this.state.password
+      })
+      .then(response => {
+        console.log('login response: ')
+        console.log(response)
+        if (response.status === 200) {
+          // update App.js state
+          this.props.updateUser({
+            loggedIn: true,
+            username: response.data.username
+          })
+          // update the state to redirect to home
+          this.setState({
+            redirectTo: '/'
+          })
+        }
+      }).catch(error => {
+        console.log('login error: ')
+        console.log(error);
+
+      })
   }
+
   render() {
+    if (this.state.redirectTo) {
+      return <Redirect to={{ pathname: this.state.redirectTo }} />
+    } else {
+      return (
+        <div id="signin">
+          <h4>Login</h4>
+          <form className="form-horizontal">
+            <div className="form-group">
+              <div className="col-1 col-ml-auto">
+                <label className="form-label" htmlFor="username">Username</label>
+              </div>
+              <div className="col-3 col-mr-auto">
+                <input className="form-input"
+                  type="text"
+                  id="username"
+                  name="username"
+                  placeholder="Username"
+                  value={this.state.username}
+                  onChange={this.handleChange}
+                />
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="col-1 col-ml-auto">
+                <label className="form-label" htmlFor="password">Password: </label>
+              </div>
+              <div className="col-3 col-mr-auto">
+                <input className="form-input"
+                  placeholder="password"
+                  type="password"
+                  name="password"
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                />
+              </div>
+            </div>
+            <div className="form-group ">
+              <div className="col-7"></div>
+              <button
+                className="btn btn-primary col-1 col-mr-auto"
 
-    return (
+                onClick={this.handleSubmit}
+                type="submit">Login</button>
 
 
-      <div id="signin">
+            </div>
+          </form>
+        </div>
+      )
+    }
+  }
+}
 
-        <form className="pure-form pure-form-stacked">
-          <fieldset>
-            <legend>Please input your email and password</legend>
+export default LoginForm
 
-            <label for="email">Email</label>
-            <input id="email" type="email" placeholder="Email" />
-            <span className="pure-form-message">This is a required field.</span>
+// import { BrowserRouter as Router } from "react-router-dom";
 
-            <label for="password">Password</label>
-            <input id="password" type="password" placeholder="Password" />
-            <span className="pure-form-message">This is a required field.</span>
+// class SignIn extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       open: false,
+//       firstname: "",
+//       lastname: "",
+//       email: "",
+//       password: "",
+//       password2: ""
+//     }
 
-            <button type="submit" className="pure-button pure-button-primary">SIGN IN</button>
-            <span className="pure-form-message">Don't have an account?</span>
-            {/* Add a Car dialog */}
-            <Button className="signup" variant="outlined" color="primary" onClick={this.handleClickOpen}>
-              Sign Up
-        </Button>
-            <Dialog
+//     this.handleSaveClick = this.handleSaveClick.bind(this);
+//     this.handleInputChange = this.handleInputChange.bind(this);
+//   }
+
+//   handleInputChange = event => {
+//     const { name, value } = event.target;
+//     this.setState({
+//       [name]: value
+
+//     });
+//     debugger;
+//   };
+
+//   handleSaveClick = function (e) {
+
+//     const userData = {
+//       firstname: this.props.firstname,
+//       lastname: this.props.lastname,
+//       email: this.props.email,
+//       password: this.props.password,
+//       passowrd2: this.props.password2
+//     }
+//     e.preventDefault();
+//     API.addUserToDB(userData).then(
+//       (response) => {
+//         console.log(response);
+//       }
+//     ).catch(
+//       (err) => {
+//         console.log(err);
+//       }
+//     );
+//   }
+
+//   handleClickOpen = () => {
+//     this.setState({ open: true });
+//   };
+
+//   handleClose = () => {
+//     this.setState({ open: false });
+//   }
+//   render() {
+
+//     return (
+
+
+//       <div id="signin">
+
+//         <form className="pure-form pure-form-stacked">
+//           <fieldset>
+//             <legend>Please input your email and password</legend>
+
+//             <label for="email">Email</label>
+//             <input id="email" type="email" placeholder="Email" />
+//             <span className="pure-form-message">This is a required field.</span>
+
+//             <label for="password">Password</label>
+//             <input id="password" type="password" placeholder="Password" />
+//             <span className="pure-form-message">This is a required field.</span>
+
+//             <button type="submit" className="pure-button pure-button-primary">SIGN IN</button>
+//             <span className="pure-form-message">Don't have an account?</span>
+//             {/* Add a Car dialog */}
+//             <Button className="signup" variant="outlined" color="primary" onClick={this.handleClickOpen}>
+//               Sign Up
+// </Button>
+{/* <Dialog
               open={this.state.open}
               onClose={this.handleClose}
               aria-labelledby="form-dialog-title"
@@ -162,12 +271,12 @@ class SignIn extends React.Component {
                   Sign Up
             </Button>
               </DialogActions>
-            </Dialog>
+            </Dialog> */}
 
-          </fieldset>
-        </form>
-      </div>
-    );
-  }
-}
-export default SignIn;
+//           </fieldset>
+//         </form>
+//       </div>
+//     );
+//   }
+// }
+// export default SignIn;
