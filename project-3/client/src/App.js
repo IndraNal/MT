@@ -1,4 +1,5 @@
 // import React, { Fragment } from "react";
+import axios from "axios";
 import React, { Component } from 'react';
 import { Route } from "react-router-dom";
 import UserPage from './Pages/UserPage';
@@ -48,7 +49,7 @@ class App extends Component {
   }
 
   getUser() {
-    axios.get('/user/').then(response => {
+    axios.get('/user').then(response => {
       console.log('Get user response: ')
       console.log(response.data)
       if (response.data.user) {
@@ -72,7 +73,7 @@ class App extends Component {
     return (
       <div className="App">
 
-        <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} />
+        {/* <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} /> */}
         {/* greet user if logged in: */}
         {this.state.loggedIn &&
           <p>Join the party, {this.state.email}!</p>
@@ -80,6 +81,9 @@ class App extends Component {
         {/* Routes to different components */}
         <Route
           exact path="/"
+          component={UserPage} />
+           <Route
+          exact path="/user"
           component={UserPage} />
         <Route
           path="/login"

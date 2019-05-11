@@ -35,28 +35,28 @@ module.exports = function (app, passport) {
   //   failureFlash: true
   // }
   // ));
- 
-  app.post('/register', passport.authenticate('local-signup'), (req, res, next) => {
-		console.log('/login handler');
-		req.session.save((err) => {
-				if (err) {
-						return next(err);
-				}
 
-				res.status(200).send('OK');
-		});
-});
+  app.post('/user', passport.authenticate('local-signup'), (req, res, next) => {
+    console.log('/login handler');
+    req.session.save((err) => {
+      if (err) {
+        return next(err);
+      }
+
+      res.status(200).send('OK');
+    });
+  });
 
   app.post('/', passport.authenticate('local-signin'), (req, res, next) => {
-		console.log('/login handler');
-		req.session.save((err) => {
-				if (err) {
-						return next(err);
-				}
+    console.log('/login handler');
+    req.session.save((err) => {
+      if (err) {
+        return next(err);
+      }
 
-				res.status(200).send('OK');
-		});
-});
+      res.status(200).send('OK');
+    });
+  });
 
   // // Register Proccess
   // app.post('/register', passport.authenticate('local-signup', {
@@ -81,19 +81,19 @@ module.exports = function (app, passport) {
   // });
 
   app.get('/logout', (req, res, next) => {
-		req.logout();
-		req.session.save((err) => {
-				if (err) {
-						return next(err);
-				}
-				res.status(200).send('OK');
-		});
-});
+    req.logout();
+    req.session.save((err) => {
+      if (err) {
+        return next(err);
+      }
+      res.status(200).send('OK');
+    });
+  });
 
-// Use this to test that your API is working
-app.get('/ping', (req, res) => {
-		res.status(200).send("pong!");
-});
+  // Use this to test that your API is working
+  app.get('/ping', (req, res) => {
+    res.status(200).send("pong!");
+  });
 
 
 
