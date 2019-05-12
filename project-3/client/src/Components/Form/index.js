@@ -297,9 +297,9 @@
 // // export default SignIn;
 
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom'
+
 import axios from 'axios'
-import Signup from "../Form"
+//import Signup from "../Form"p-0ioyhgbyh
 
 class LoginForm extends Component {
   constructor(props) {
@@ -307,7 +307,6 @@ class LoginForm extends Component {
     this.state = {
       email: '',
       password: '',
-      redirectTo: null
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -319,7 +318,7 @@ class LoginForm extends Component {
     console.log(this.props);
     debugger
     // document.location.pathname = '/signup'
-    //this.props.history.push('/signup')
+    this.props.history.push('/signup')
 
   }
 
@@ -347,10 +346,7 @@ class LoginForm extends Component {
             loggedIn: true,
             email: response.data.email
           })
-          // update the state to redirect to home
-          this.setState({
-            redirectTo: '/'
-          })
+
         }
       }).catch(error => {
         console.log('login error: ')
@@ -360,9 +356,7 @@ class LoginForm extends Component {
   }
 
   render() {
-    // if (this.state.redirectTo) {
-    //   return <Redirect to={{ pathname: this.state.redirectTo }} />
-    // } else {
+
     return (
       <div>
         <h4>Login</h4>
@@ -400,11 +394,9 @@ class LoginForm extends Component {
             <div className="col-7"></div>
             <button
               className="btn btn-primary col-1 col-mr-auto"
-
               onClick={this.handleSubmit}
               type="submit">Login</button>
           </div>
-
 
           <div className="form-group ">
             <div className="col-7"></div>

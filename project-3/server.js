@@ -70,7 +70,7 @@ app.use(expressValidator({
 }));
 
 // Passport Config
-require('./config/passport')(passport, db.User);
+require('./passport/index')(passport, db.User);
 
 // Define API routes here
 require('./routes/api/users.js')(app, passport);
