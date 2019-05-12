@@ -1,3 +1,15 @@
+// const router = require("express").Router();
+// const carController = require("../../controller/carController");
+
+
+// router.route("/")
+
+//   .get(carController.findAll)
+//   .post(carController.createCar)
+
+
+// module.exports = router;
+
 
 // Bring in User Model
 let db = require('../../models');
@@ -38,14 +50,20 @@ module.exports = function (app, passport) {
 
   app.post('/user', passport.authenticate('local-signup'), (req, res, next) => {
     console.log('/login handler');
+    console.log(req.body);
+    // console.log(next);
     req.session.save((err) => {
       if (err) {
         return next(err);
       }
 
-      res.status(200).send('OK');
+      res.status(200)
+        .send('OK')
+      .json(res.user)
     });
   });
+
+
 
   app.post('/', passport.authenticate('local-signin'), (req, res, next) => {
     console.log('/login handler');

@@ -27,26 +27,22 @@ module.exports = function (passport, user) {
   });
 
   passport.use('local-signup', new LocalStrategy(
-
     {
       usernameField: 'email',
       passwordField: 'password',
       passReqToCallback: true // allows us to pass back the entire request to the callback
     },
-
-    function (req, email, password, done) {
-
-      console.log(email);
+    (req, email, password, done) => {
       var generateHash = function (password) {
         return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
       };
 
-      User.findOne({ where: { email: email } }).then(function (user) {
-
-        if (user) {
+      User.findOne({ where: { email: email } }).then(function (response) {
+        console.log(response.dataValues)
+        if (response.dataValues) {
           console.log('message', 'That email is already taken.');
           //return done(null, false, { message: 'That email is already taken' });
-          return done(null, false, req.flash('lmessage', 'That email is already taken.'));
+          return done(null, response.dataValues);
         }
 
         else {
@@ -74,7 +70,10 @@ module.exports = function (passport, user) {
 
         }
 
-      });
+      }).catch(err => console.log(error))
+
+
+
     }
   ));
 
