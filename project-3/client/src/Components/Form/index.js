@@ -297,7 +297,7 @@
 // // export default SignIn;
 
 import React, { Component } from 'react'
-
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 //import Signup from "../Form"p-0ioyhgbyh
 
@@ -307,6 +307,7 @@ class LoginForm extends Component {
     this.state = {
       email: '',
       password: '',
+      redirectTo: null
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
@@ -333,7 +334,7 @@ class LoginForm extends Component {
     console.log('handleSubmit')
 
     axios
-      .post('/login', {
+      .post('/user/login', {
         email: this.state.email,
         password: this.state.password
       })
@@ -345,6 +346,10 @@ class LoginForm extends Component {
           this.props.updateUser({
             loggedIn: true,
             email: response.data.email
+          })
+            // update the state to redirect to home
+            this.setState({
+              redirectTo: '/'
           })
 
         }

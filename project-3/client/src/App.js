@@ -82,9 +82,7 @@ class App extends Component {
         <Route
           exact path="/"
           component={UserPage} />
-        <Route
-          exact path="/user"
-          component={UserPage} />
+        
         <Route
           path="/login"
           render={props =>
