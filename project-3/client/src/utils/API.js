@@ -14,7 +14,16 @@ export default {
   },
   getTripType: function () {
     return axios.get("/api/trippurpose")
-  }
+  },
+postRegister:function(PostRegister){
+return axios.post("/user",PostRegister)
+},
 
+getRegister:function(){
+  return axios.get("/user")
+  },
+postUser:function(PostUser){
+    return axios.post("/user/login",PostUser)
+    },
 
-};
+}

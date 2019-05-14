@@ -3,29 +3,13 @@ import axios from "axios";
 import React, { Component } from 'react';
 import { Route } from "react-router-dom";
 import UserPage from './Pages/UserPage';
-import Reports from './Pages/Reports';
+//import Reports from './Pages/Reports';
 import NoMatch from "./Pages/NoMatch";
-import Signup from "./Components/Sign-up"
-import LoginForm from './Components/Form'
-
-// function App() {
-//   return (
-//     <Router>
-//       <Fragment>
-//         <Switch>
-//           <Route exact path="/" component={Login} />
-//           <Route exact path="/user" component={UserPage} />
-
-//           {/* <Route exact path="/reports" component={Reports} /> */}
-//           <Route component={NoMatch} />
-//         </Switch>
-//       </Fragment>
-//     </Router>
-//   );
-// }
+import Signup from "./Components/SignUp"
+import LoginForm from './Components/Login'
+import API from "./utils/API";
 
 
-// export default App;
 
 class App extends Component {
   constructor() {
@@ -48,8 +32,8 @@ class App extends Component {
     this.setState(userObject)
   }
 
-  getUser() {
-    axios.get('/user').then(response => {
+  getUser=() =>{
+    API.getRegister().then(response => {
       console.log('Get user response: ')
       console.log(response.data)
       if (response.data.user) {
@@ -97,7 +81,12 @@ class App extends Component {
           render={() =>
             <Signup />}
         />
-
+      
+      <Route
+          path="/NoMatch"
+          render={() =>
+            <Signup />}
+        />
 
       </div>
     );

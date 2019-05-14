@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import { Redirect } from 'react-router-dom'
-
+import API from '../../utils/API'
 import "./style.css";
 
 import Button from '@material-ui/core/Button';
@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
 
-class Signup extends Component {
+class SignUp extends Component {
   constructor() {
     super()
     this.state = {
@@ -35,7 +35,7 @@ class Signup extends Component {
     event.preventDefault()
 
     //request to server to add a new username/password
-    axios.post('/user', {
+    API.postRegister( {
       firstname: this.state.firstname,
       lastname: this.state.lastname,
       email: this.state.email,
@@ -160,4 +160,4 @@ class Signup extends Component {
   }
 }
 
-export default Signup
+export default SignUp

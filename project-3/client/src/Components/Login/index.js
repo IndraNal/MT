@@ -5,6 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
+import API from "../../utils/API";
 
 
 class LoginForm extends Component {
@@ -38,8 +39,7 @@ class LoginForm extends Component {
     event.preventDefault()
     console.log('handleSubmit')
 
-    axios
-      .post('/user/login', {
+    API.postUser( {
         email: this.state.email,
         password: this.state.password
       })

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import SignIn from "../Components/Form/index";
+import Login from "../Components/Login/index";
 import Wrapper from "../Components/Wrapper/index"
 import Banner from "../Components/Banner";
 
@@ -14,7 +14,7 @@ render() {
         <div id="login">
         <Wrapper>
             <Banner />
-            <SignIn className="signin"> </SignIn> 
+            <Login className="signin"> </Login> 
         </Wrapper>
         </div>
     );
