@@ -2,17 +2,6 @@ import axios from "axios";
 
 export default {
 
-
-  // Save User to database
-
-  // addUserToDB: (userData) => {
-  //   return axios.post("/register", userData);
-  //   console.log(userData)
-  // },
-
-
-
-
   // Saves a car to the database 
   getCarName: function () {
     return axios.get("/api/car")

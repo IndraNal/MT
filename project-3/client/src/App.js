@@ -3,8 +3,8 @@ import axios from "axios";
 import React, { Component } from 'react';
 import { Route } from "react-router-dom";
 import UserPage from './Pages/UserPage';
-// import Reports from './Pages/Reports';
-//import NoMatch from "./Pages/NoMatch";
+import Reports from './Pages/Reports';
+import NoMatch from "./Pages/NoMatch";
 import Signup from "./Components/Sign-up"
 import LoginForm from './Components/Form'
 
@@ -54,16 +54,16 @@ class App extends Component {
       console.log(response.data)
       if (response.data.user) {
         console.log('Get User: There is a user saved in the server session: ')
-
+        console.log(response.data.user.firstname)
         this.setState({
           loggedIn: true,
-          username: response.data.user.email
+          username: response.data.user.firstname
         })
       } else {
         console.log('Get user: no user');
         this.setState({
           loggedIn: false,
-          email: null
+          username: null
         })
       }
     })
@@ -75,16 +75,18 @@ class App extends Component {
 
         {/* <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} /> */}
         {/* greet user if logged in: */}
-        {this.state.loggedIn &&
-          <p>Join the party, {this.state.email}!</p>
-        }
+        {/* {this.state.loggedIn &&
+          <p>Join the party, {this.state.username}!</p>
+        } */}
+
+
         {/* Routes to different components */}
         <Route
-          exact path="/"
+          exact path="/UserPage"
           component={UserPage} />
-        
+
         <Route
-          path="/login"
+          exact path="/"
           render={props =>
             <LoginForm {...props}
               updateUser={this.updateUser}
