@@ -1,5 +1,6 @@
 var express = require('express');
 var path = require('path');
+const router = express.Router()
 // Init App
 var app = express();
 var db = require("./models");
@@ -49,7 +50,8 @@ if (process.env.NODE_ENV === "production") {
 //   //res.locals.lmessage = req.flash('lmessage');
 //   next();
 // });
-app.use('/', routes)
+app.use('/', routes);
+
 // Express Validator Middleware
 // app.use(expressValidator({
 //   errorFormatter: function (param, msg, value) {

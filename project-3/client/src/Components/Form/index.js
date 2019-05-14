@@ -23,7 +23,6 @@ class LoginForm extends Component {
 
   goSignUp() {
     console.log(this.props);
-    debugger
     // document.location.pathname = '/signup'
     this.props.history.push('/signup')
 
